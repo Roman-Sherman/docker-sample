@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  web:
+    build: ./web
+    container_name: web-server
+    ports: 
+      - "80:80"
+    # http://rails-app:8080/managesys/
+    links:
+      - app:rails-app
+      
+  app:
+    build: ./app
+    container_name: app-server
+    restart: always
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails db:reset && bundle exec rails s -p 8080 -b '0.0.0.0'"
+    ports:
+      - "8080:8080"
+    environment:
+      RAILS_ENV: production
+    depends_on:
+      - db
+
+  db:
+    build: ./db
+    container_name: db-server
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: testusr
+      MYSQL_PASSWORD: testusr
+    volumes:
+      - ./db/init.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"

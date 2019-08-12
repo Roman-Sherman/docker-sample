@@ -1,0 +1,37 @@
+# docker-compose.yml
+version: "2"
+services:
+  web:
+    build: ./web
+    container_name: web-server
+    ports: 
+      - "80:80"
+    # http://aspnet-app:8080/managesys/
+    links:
+      - app:aspnet-app
+
+  app:
+    build: ./app
+    container_name: app-server
+    restart: always
+    ports: 
+      - "8080:8080"
+    # jdbc:mysql://mysql-db:3306/
+    depends_on:
+      - "db"
+    links:
+      - db:mysql-db
+
+  db:
+    build: ./db
+    container_name: db-server
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testusr
+      MYSQL_PASSWORD: testusr
+    volumes:
+      - ./db/init.d:/docker-entrypoint-initdb.d
+      #- ./db/mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
