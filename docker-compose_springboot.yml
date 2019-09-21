@@ -2,16 +2,16 @@
 version: "2"
 services:
   web:
-    build: ./web
+    build: ./web/vue    # ./web/react
     container_name: web-server
     ports: 
       - "80:80"
-    # http://spring-app:8080/managesys/
+    # http://app-srv:8080/managesys/
     links:
-      - app:spring-app
+      - app:app-srv
 
   app:
-    build: ./app
+    build: ./app/springboot
     container_name: app-server
     ports: 
       - "8080:8080"

@@ -1,37 +1,35 @@
-# docker-compose.yml
-version: "2"
+version: '3.4'
 services:
   web:
-    build: ./web
+    build: ./web/vue    # ./web/react
     container_name: web-server
     ports: 
       - "80:80"
-    # http://aspnet-app:8080/managesys/
+    # http://app-srv:8080/managesys/
     links:
-      - app:aspnet-app
-
+      - app:app-srv
+      
   app:
-    build: ./app
+    build: ./app/rails
     container_name: app-server
     restart: always
-    ports: 
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails db:reset && bundle exec rails s -p 8080 -b '0.0.0.0'"
+    ports:
       - "8080:8080"
-    # jdbc:mysql://mysql-db:3306/
+    environment:
+      RAILS_ENV: production
     depends_on:
-      - "db"
-    links:
-      - db:mysql-db
+      - db
 
   db:
     build: ./db
     container_name: db-server
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: testdb
+      MYSQL_DATABASE: db
       MYSQL_USER: testusr
       MYSQL_PASSWORD: testusr
     volumes:
       - ./db/init.d:/docker-entrypoint-initdb.d
-      #- ./db/mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
