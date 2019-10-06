@@ -1,6 +1,6 @@
 FROM ruby:2.5.1
 ENV LANG C.UTF-8
-RUN apt-get update -qq && apt-get install -y --no-install-recommends build-essential mysql-client nodejs
+RUN apt-get update -qq && apt-get install -y --no-install-recommends build-essential postgresql nodejs
 RUN gem install bundler
 
 RUN git clone https://github.com/ybkuroki/rails-webapp-sample.git

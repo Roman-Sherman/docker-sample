@@ -28,12 +28,6 @@ ENV TZ 'Asia/Tokyo'
 #  && . /etc/default/locale \
 #  && echo export LANG=ja_JP.UTF-8 >> /root/.profile
 
-# MySQLクライアントをインストールする
-RUN apt-get -y install mysql-client
-
-# データベース接続を待つスクリプトを追加
-COPY ./wait.sh ./wait.sh
-
 # ビルド環境でビルドしたjarファイルを追加
 COPY --from=Builder /home/gradle/springboot-webapp-sample/build/libs/springboot-webapp-sample.jar ./app.jar
 
@@ -44,4 +38,4 @@ RUN sh -c 'touch ./app.jar'
 EXPOSE 8080
 
 # 実行時引数としてDocker環境向けプロファイルを指定してjarファイルを実行する
-ENTRYPOINT sh ./wait.sh mysql-db testusr testusr java -Dspring.profiles.active=docker -Djava.security.egd=file:/dev/./urandom -jar ./app.jar
+ENTRYPOINT java -Dspring.profiles.active=docker -Djava.security.egd=file:/dev/./urandom -jar ./app.jar

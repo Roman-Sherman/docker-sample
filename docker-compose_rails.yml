@@ -20,16 +20,19 @@ services:
       RAILS_ENV: production
     depends_on:
       - db
+    links:
+      - db:postgres-db
 
   db:
     build: ./db
     container_name: db-server
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
-      MYSQL_USER: testusr
-      MYSQL_PASSWORD: testusr
-    volumes:
-      - ./db/init.d:/docker-entrypoint-initdb.d
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@s$w0rd
+      TZ: Asia/Tokyo
+    volumes:
+      # - "./pgdata:/var/lib/postgresql/data"
+      - "./db/conf/postgresql.conf:/etc/postgresql.conf"
+      - "./db/initdb.d:/docker-entrypoint-initdb.d"
