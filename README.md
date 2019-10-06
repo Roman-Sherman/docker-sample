@@ -72,7 +72,7 @@ Start a bash session on a running container in the following command.
     ```
 - Database Container
     ```bash
-    docker exec -it db-server /bin/bash
+    docker exec -it db-server psql -U postgres
     ```
 
 ## Stopping Container
@@ -104,6 +104,9 @@ The follwing figure is the map of this sample project.
 ```
 - docker-webapp-sample
   + app                                 … Application Container
+    - aspnetcore                        … Dockerfile for ASP.NET Core.
+    - rails                             … Dockerfile for Ruby on Rails.
+    - springboot                        … Dockerfile for Spring Boot.
   + db                                  … Database Container
   + web                                 … Web Container
     - vue
