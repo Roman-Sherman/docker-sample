@@ -1,5 +1,5 @@
 # ビルド環境
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS builder
 
 # GitHubよりソースコードを取得
 RUN git clone https://github.com/ybkuroki/aspnetcore-webapp-sample.git
@@ -13,7 +13,7 @@ RUN dotnet publish -c Release -o out
 
 
 # 実行環境
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 # 作業ディレクトリへ移動
 WORKDIR /app
 # ビルド環境でビルドしたDLLファイルをコピー

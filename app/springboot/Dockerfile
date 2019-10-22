@@ -1,6 +1,6 @@
 # Dockerfile
 # ビルド環境
-FROM gradle:5.4.1-jdk11 AS Builder
+FROM gradle:5.6.3-jdk8 AS Builder
 
 # GitHubよりソースコードを取得
 RUN git clone https://github.com/ybkuroki/springboot-webapp-sample.git
@@ -20,13 +20,6 @@ RUN apt-get update
 
 # タイムゾーンを東京に設定する
 ENV TZ 'Asia/Tokyo'
-
-# 言語設定を日本語に設定する
-#RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen \
-#  && apt-get install -y locales \
-#  && update-locale LANG=ja_JP.UTF-8 \
-#  && . /etc/default/locale \
-#  && echo export LANG=ja_JP.UTF-8 >> /root/.profile
 
 # ビルド環境でビルドしたjarファイルを追加
 COPY --from=Builder /home/gradle/springboot-webapp-sample/build/libs/springboot-webapp-sample.jar ./app.jar
