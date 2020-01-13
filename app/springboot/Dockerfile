@@ -22,7 +22,7 @@ RUN apt-get update
 ENV TZ 'Asia/Tokyo'
 
 # ビルド環境でビルドしたjarファイルを追加
-COPY --from=Builder /home/gradle/springboot-webapp-sample/build/libs/springboot-webapp-sample.jar ./app.jar
+COPY --from=Builder /home/gradle/springboot-webapp-sample/build/libs/springboot-webapp-sample-1.2.0.jar ./app.jar
 
 # jarファイルのタイムスタンプ変更
 RUN sh -c 'touch ./app.jar'
