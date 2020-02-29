@@ -72,7 +72,16 @@ Start a bash session on a running container in the following command.
     ```
 - Database Container
     ```bash
-    docker exec -it db-server psql -U postgres
+    docker exec -it db-server psql -U testusr testdb
+    ```
+    Show tables and select stored datas.
+    ```bash
+    # show tables
+    \dt;
+    # select BOOK table
+    select * from "BOOK";
+    # exit
+    \q
     ```
 
 ## Stopping Container

@@ -13,11 +13,12 @@ RUN npm install \
 
 
 # 実行環境
-FROM httpd:2.4 AS Runtime
+FROM nginx:latest AS Runtime
 
 # ビルド済みJavaScriptファイルとCSSファイルを追加
-COPY --from=Builder /reactjs-webapp-sample/dist/ /usr/local/apache2/htdocs/
-# httpd.confを追加
-COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY --from=Builder /reactjs-webapp-sample/dist/ /usr/share/nginx/html/
+# nginx.confを追加
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./server.conf /etc/nginx/conf.d/server.conf
 
 EXPOSE 80 443

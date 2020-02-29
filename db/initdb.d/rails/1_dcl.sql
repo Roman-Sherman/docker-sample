@@ -1,0 +1,3 @@
+CREATE USER testusr PASSWORD 'testusr' CREATEDB;
+CREATE DATABASE testdb OWNER testusr;
+GRANT ALL PRIVILEGES ON DATABASE testdb TO testusr;

@@ -33,5 +33,5 @@ services:
       TZ: Asia/Tokyo
     volumes:
       # - "./pgdata:/var/lib/postgresql/data"
-      - "./db/conf/postgresql.conf:/etc/postgresql.conf"
-      - "./db/initdb.d:/docker-entrypoint-initdb.d"
+      # - "./db/conf/postgresql.conf:/etc/postgresql.conf"
+      - "./db/initdb.d/aspnetcore:/docker-entrypoint-initdb.d"
