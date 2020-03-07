@@ -13,7 +13,7 @@ services:
     build: ./app/rails
     container_name: app-server
     restart: always
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails db:reset && bundle exec rails s -p 8080 -b '0.0.0.0'"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8080 -b '0.0.0.0'"
     ports:
       - "8080:8080"
     environment:
