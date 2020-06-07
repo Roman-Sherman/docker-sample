@@ -1,6 +1,6 @@
 # Dockerfile
 # ビルド環境
-FROM gradle:5.6.3-jdk8 AS Builder
+FROM gradle:6.4.1-jdk8 AS Builder
 
 # GitHubよりソースコードを取得
 RUN git clone https://github.com/ybkuroki/springboot-webapp-sample.git
