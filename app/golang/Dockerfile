@@ -1,3 +1,5 @@
+## docker exec -it app-server /bin/sh
+
 # this stage for builder.
 FROM golang:1.14-alpine as Builder
 
@@ -9,14 +11,14 @@ ENV GO111MODULE=on
 # update packages.
 RUN apk add --no-cache sqlite-libs sqlite-dev build-base gcc git
 
-# install dependency packages.
-RUN go get -u github.com/ybkuroki/go-webapp-sample
-
 # get souce code from github.com
 RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git
 
 # move working directory.
 WORKDIR /go-webapp-sample
+
+# install dependency packages.
+RUN go mod download
 
 # build source code.
 RUN go build -o app ./main.go
