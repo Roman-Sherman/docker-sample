@@ -10,6 +10,7 @@ This project is a sample for running the following web application on docker con
     - [springboot-webapp-sample](https://github.com/ybkuroki/springboot-webapp-sample)
     - [rails-webapp-sample](https://github.com/ybkuroki/rails-webapp-sample)
     - [aspnetcore-webapp-sample](https://github.com/ybkuroki/aspnetcore-webapp-sample)
+    - [go-webapp-sample](https://github.com/ybkuroki/go-webapp-sample)
 
 ## Install
 Perform the following steps:
@@ -116,6 +117,7 @@ The follwing figure is the map of this sample project.
     - aspnetcore                        … Dockerfile for ASP.NET Core.
     - rails                             … Dockerfile for Ruby on Rails.
     - springboot                        … Dockerfile for Spring Boot.
+    - golang                            … Dockerfile for Golang Echo.
   + db                                  … Database Container
   + web                                 … Web Container
     - vue
@@ -123,6 +125,7 @@ The follwing figure is the map of this sample project.
   - docker-compose_aspnetcore.yml       … YAAML file for ASP.NET Core.
   - docker-compose_rails.yml            … YAAML file for Ruby on Rails.
   - docker-compose_springboot.yml       … YAAML file for Spring Boot.
+  - docker-compose_golang.yml           … YAAML file for Golang Echo.
 ```
 
 ## License

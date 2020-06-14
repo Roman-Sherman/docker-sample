@@ -1,0 +1,39 @@
+# docker-compose.yml
+version: "2"
+services:
+  web:
+    build: ./web/vue    # ./web/react
+    container_name: web-server
+    ports: 
+      - "80:80"
+    # http://app-srv:8080/managesys/
+    links:
+      - app:app-srv
+
+  app:
+    build: ./app/golang
+    container_name: app-server
+    restart: always
+    ports: 
+      - "8080:8080"
+    environment:
+      TZ: Asia/Tokyo
+    # jdbc:mysql://mysql-db:3306/
+    depends_on:
+      - "db"
+    links:
+      - db:postgres-db
+
+  db:
+    build: ./db
+    container_name: db-server
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@s$w0rd
+      TZ: Asia/Tokyo
+    volumes:
+      # - "./pgdata:/var/lib/postgresql/data"
+      # - "./db/conf/postgresql.conf:/etc/postgresql.conf"
+      - "./db/initdb.d/golang:/docker-entrypoint-initdb.d"
