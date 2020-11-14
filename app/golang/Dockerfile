@@ -30,6 +30,7 @@ FROM alpine:3 as Runtime
 # copy artifacts from builder.
 COPY --from=Builder /go-webapp-sample/app ./app
 COPY --from=Builder /go-webapp-sample/application.docker.yml ./application.docker.yml
+COPY --from=Builder /go-webapp-sample/zaplogger.docker.yml ./zaplogger.docker.yml
 
 # release 8080 port
 EXPOSE 8080
