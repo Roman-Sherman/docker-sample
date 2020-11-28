@@ -1,5 +1,5 @@
 # ビルド環境
-FROM node:8.16.0 AS Builder
+FROM node:14.15.0 AS Builder
 
 # GitHubよりソースコードを取得
 RUN git clone https://github.com/ybkuroki/reactjs-webapp-sample.git

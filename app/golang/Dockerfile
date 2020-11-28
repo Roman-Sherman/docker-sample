@@ -12,7 +12,7 @@ ENV GO111MODULE=on
 RUN apk add --no-cache sqlite-libs sqlite-dev build-base gcc git
 
 # get souce code from github.com
-RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git
+RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b v1.4.0 --depth 1
 
 # move working directory.
 WORKDIR /go-webapp-sample
@@ -30,6 +30,7 @@ FROM alpine:3 as Runtime
 # copy artifacts from builder.
 COPY --from=Builder /go-webapp-sample/app ./app
 COPY --from=Builder /go-webapp-sample/application.docker.yml ./application.docker.yml
+COPY --from=Builder /go-webapp-sample/zaplogger.docker.yml ./zaplogger.docker.yml
 
 # release 8080 port
 EXPOSE 8080

@@ -69,11 +69,14 @@ Start a bash session on a running container in the following command.
     ```
 - Application Container
     ```bash
-    docker exec -it app-server /bin/bash
+    docker exec -it app-server /bin/sh
+    docker logs -f app-server
     ```
 - Database Container
     ```bash
     docker exec -it db-server psql -U testusr testdb
+    docker exec -it db-server /bin/sh
+    pg_dump --inserts -U testusr testdb
     ```
     Show tables and select stored datas.
     ```bash
