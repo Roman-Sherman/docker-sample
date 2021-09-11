@@ -1,7 +1,7 @@
 ## docker exec -it app-server /bin/sh
 
 # this stage for builder.
-FROM golang:1.14-alpine as Builder
+FROM golang:1.17-alpine as Builder
 
 # set environment variable.
 ENV GOOS=linux
@@ -12,7 +12,7 @@ ENV GO111MODULE=on
 RUN apk add --no-cache sqlite-libs sqlite-dev build-base gcc git
 
 # get souce code from github.com
-RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b v1.5.0 --depth 1
+RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b v1.5.2 --depth 1
 
 # move working directory.
 WORKDIR /go-webapp-sample

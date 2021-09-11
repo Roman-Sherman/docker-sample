@@ -1,8 +1,8 @@
 # ビルド環境
-FROM node:14.15.0 AS Builder
+FROM node:14.17.6 AS Builder
 
 # GitHubよりソースコードを取得
-RUN git clone https://github.com/ybkuroki/vuejs-webapp-sample.git -b v2.0.1 --depth 1
+RUN git clone https://github.com/ybkuroki/vuejs-webapp-sample.git -b v2.0.4 --depth 1
 
 # 作業ディレクトリへ移動
 WORKDIR /vuejs-webapp-sample
