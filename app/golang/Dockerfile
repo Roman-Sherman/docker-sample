@@ -36,4 +36,4 @@ COPY --from=Builder /go-webapp-sample/zaplogger.docker.yml ./zaplogger.docker.ym
 EXPOSE 8080
 
 # perform the following command when a container have started.
-ENTRYPOINT ./app -env=docker
+ENTRYPOINT ./app
