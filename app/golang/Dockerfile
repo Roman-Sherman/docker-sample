@@ -1,39 +1,39 @@
 ## docker exec -it app-server /bin/sh
 
-# this stage for builder.
-FROM golang:1.14-alpine as Builder
+# This image is for building application.
+FROM golang:1.17-alpine as Builder
 
-# set environment variable.
+# Set environment variable.
 ENV GOOS=linux
 ENV GOARCH=amd64
 ENV GO111MODULE=on
 
-# update packages.
+# Install required packages.
 RUN apk add --no-cache sqlite-libs sqlite-dev build-base gcc git
 
-# get souce code from github.com
-RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b v1.4.0 --depth 1
+# Get souce code from github.com
+RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b v1.5.2 --depth 1
 
-# move working directory.
+# Move working directory.
 WORKDIR /go-webapp-sample
 
-# install dependency packages.
+# Install dependency packages.
 RUN go mod download
 
-# build source code.
+# Build source code.
 RUN go build -o app ./main.go
 
 
-# this stage for runtime.
+# This image is for running application.
 FROM alpine:3 as Runtime
 
-# copy artifacts from builder.
+# Copy artifacts from builder image.
 COPY --from=Builder /go-webapp-sample/app ./app
 COPY --from=Builder /go-webapp-sample/application.docker.yml ./application.docker.yml
 COPY --from=Builder /go-webapp-sample/zaplogger.docker.yml ./zaplogger.docker.yml
 
-# release 8080 port
+# Release 8080 port
 EXPOSE 8080
 
-# perform the following command when a container have started.
-ENTRYPOINT ./app -env=docker
+# Perform the following command when a container have started.
+ENTRYPOINT ./app

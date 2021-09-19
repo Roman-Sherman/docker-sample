@@ -1,24 +1,25 @@
-# ビルド環境
-FROM node:14.15.0 AS Builder
+# This image is for building application.
+FROM node:14.17.6 AS Builder
 
-# GitHubよりソースコードを取得
-RUN git clone https://github.com/ybkuroki/vuejs-webapp-sample.git
+# Get souce code from github.com
+RUN git clone https://github.com/ybkuroki/vuejs-webapp-sample.git -b v2.0.4 --depth 1
 
-# 作業ディレクトリへ移動
+# Move working directory.
 WORKDIR /vuejs-webapp-sample
 
-# パッケージのインストールとプロダクションビルド
+# Install dependency packages and build source code.
 RUN npm install \
   && npm run build
 
 
-# 実行環境
+# This image is for running application.
 FROM nginx:latest AS Runtime
 
-# ビルド済みJavaScriptファイルとCSSファイルを追加
+# Copy artifacts from builder image.
 COPY --from=Builder /vuejs-webapp-sample/dist/ /usr/share/nginx/html/
-# nginx.confを追加
+# Add nginx.conf
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY ./server.conf /etc/nginx/conf.d/server.conf
 
+# Release 80 and 443 port
 EXPOSE 80 443

@@ -26,11 +26,11 @@ Perform the following steps:
 
 1. Build the ``docker-compose.yml`` in Docker Compose. Set a yml file with the ``-f`` option. For Spring Boot, set ``docker-compose_springboot.yml``.
     ```bash
-    docker-compose -f [File Name] build
+    docker-compose -f [File Name] build --no-cache
     ```
     ex)
     ```bash
-    docker-compose -f docker-compose_springboot.yml build
+    docker-compose -f docker-compose_springboot.yml build --no-cache
     ```
 1. Start containers in Docker Compose.
     ```bash
