@@ -1,10 +1,9 @@
 ## docker exec -it app-server /bin/sh
 
 # This image is for building application.
-FROM golang:1.19-alpine as Builder
+FROM golang:1.20-alpine as Builder
 
 ARG VERSION
-RUN echo refs/tags/${VERSION}
 
 # Set environment variable.
 ENV GOOS=linux
@@ -12,7 +11,7 @@ ENV GOARCH=amd64
 ENV GO111MODULE=on
 
 # Install required packages.
-RUN apk add --no-cache sqlite-libs sqlite-dev build-base gcc git
+RUN apk add --no-cache git
 
 # Get souce code from github.com
 RUN cd / && git clone https://github.com/ybkuroki/go-webapp-sample.git -b ${VERSION} --depth 1

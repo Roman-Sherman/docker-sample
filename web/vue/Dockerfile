@@ -1,8 +1,7 @@
 # This image is for building application.
-FROM node:14.17.6 AS Builder
+FROM node:18.17.0 AS Builder
 
 ARG VERSION
-RUN echo refs/tags/${VERSION}
 
 # Get souce code from github.com
 RUN git clone https://github.com/ybkuroki/vuejs-webapp-sample.git -b ${VERSION} --depth 1

@@ -6,7 +6,7 @@ services:
       context: ./web/vue    # ./web/react
       dockerfile: ./Dockerfile
       args:
-        - VERSION=v2.0.4
+        - VERSION=v3.0.2
     container_name: web-server
     ports: 
       - "80:80"
@@ -19,7 +19,7 @@ services:
       context: ./app/golang
       dockerfile: ./Dockerfile
       args:
-        - VERSION=v1.5.3
+        - VERSION=v1.5.7
     container_name: app-server
     restart: always
     ports: 
